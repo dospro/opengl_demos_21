@@ -1,0 +1,1 @@
+int load_shaders(const char *vertex_shader_filename, const char *fragment_shader_filename);

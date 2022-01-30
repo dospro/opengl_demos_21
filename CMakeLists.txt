@@ -73,7 +73,7 @@ set(LINK_LIBS ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${OPENGL_LIBRARIES} ${GL
 
 add_executable(opengl_png_demo main.cpp)
 add_executable(lines_demo lines.cpp)
-add_executable(shaders_demo shaders.cpp)
+add_executable(shaders_demo shaders.cpp common/error_handler.cpp common/shader_utils.cpp)
 target_link_libraries(opengl_png_demo ${LINK_LIBS})
 target_link_libraries(lines_demo ${LINK_LIBS})
 target_link_libraries(shaders_demo ${LINK_LIBS})
