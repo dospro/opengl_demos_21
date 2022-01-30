@@ -20,10 +20,8 @@ int main(int argc, char *argv[]) {
             0.2, 0.2, 0.05,
             0.2, 0.8, 0.05,
             0.8, 0.8, 0.05,
+            0.8, 0.2, 0.05
 
-            0.8, 0.8, 0.05,
-            0.8, 0.2, 0.05,
-            0.2, 0.2, 0.05,
     };
 
     float tex_coords[] = {
@@ -59,6 +57,8 @@ int main(int argc, char *argv[]) {
     load_texture("bg_1.png", &texture1_id);
     load_texture("bbg1.png", &texture2_id);
 
+    glEnable(GL_BLEND);
+
     bool is_running = true;
     SDL_Event event;
     while (is_running) {
@@ -81,11 +81,23 @@ int main(int argc, char *argv[]) {
         glUseProgram(shader);
 
         glEnableClientState(GL_VERTEX_ARRAY);
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY); // When drawing arrays of vertex we also send texture coords
+
         glVertexPointer(3, GL_FLOAT, 0, vertices1);
 
         // Now load the texture
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY); // When drawing arrays of vertex we also send texture coords
         glBindTexture(GL_TEXTURE_2D, texture1_id);
+        glTexCoordPointer(2, GL_FLOAT, 0, tex_coords);
+
+        //glUniform1i(glGetUniformLocation(shader, "samp"), 1);
+        glDrawArrays(GL_QUADS, 0, 4);
+
+
+        // Draw second model
+        glVertexPointer(3, GL_FLOAT, 0, vertices2);
+
+        // Now load the texture
+        glBindTexture(GL_TEXTURE_2D, texture2_id);
         glTexCoordPointer(2, GL_FLOAT, 0, tex_coords);
 
         //glUniform1i(glGetUniformLocation(shader, "samp"), 1);
